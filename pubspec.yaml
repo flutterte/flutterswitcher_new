@@ -1,7 +1,7 @@
-name: flutterswitcher
+name: flutterswitcher_pus
 description: 一个仿Android跑马灯的简单实现。
-version: 0.0.1
-homepage: https://github.com/changleibox/flutter_switcher
+version: 0.0.2
+homepage: https://github.com/qssq/flutterswitcher_new
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
