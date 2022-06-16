@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutterswitcher_pus/switcher.dart';
+import 'package:flutterswitcher_plus/switcher.dart';
 
 const Duration _kDelayedDuration = Duration(seconds: 2);
 const double _kHeight = 30;
