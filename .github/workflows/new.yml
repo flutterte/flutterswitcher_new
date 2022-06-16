@@ -1,0 +1,43 @@
+name: Publish Package CheckUp
+env:
+  FLUTTER_VERSION: "3.0.2"
+
+#on:
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  #release:
+  #  types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: $FLUTTER_VERSION
+      - name: Install dependencies
+        run: flutter pub get
+     # - name: Analyze
+    #  run: flutter analyze
+
+      - name: Setup Pub Credentials
+        shell: bash
+        env:
+          PUB_DEV_PUBLISH_ACCESS_TOKEN: ${{ secrets.ACCESSTOKEN }}
+          PUB_DEV_PUBLISH_REFRESH_TOKEN: ${{ secrets.REFRESHTOKEN }}
+          PUB_DEV_PUBLISH_ID_TOKEN: ${{ secrets.IDTOKEN }}
+          PUB_DEV_PUBLISH_TOKEN_ENDPOINT: ${{ secrets.TOKENENDPOINT }}
+          PUB_DEV_PUBLISH_EXPIRATION: ${{ secrets.EXPIRATION }}
+        run: |
+          sh ./pub_login.sh
+      - name: Check Publish Warnings
+        run: flutter pub publish --dry-run
+      - name: Publish Package
+        run: flutter pub publish -f
